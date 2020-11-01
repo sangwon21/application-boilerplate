@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 
 const PORT = 5000;
 
-console.log(process.env.PASSWORD);
 mongoose
     .connect(
         `mongodb+srv://won:${process.env.PASSWORD}@boilerplate.y0wgj.mongodb.net/test?retryWrites=true&w=majority`,
@@ -38,4 +37,4 @@ app.post('/register', (req, res) => {
     });
 });
 
-app.listen(port, () => console.log(`Listening on ${PORT}`));
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
