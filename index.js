@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const config = require('./config/key');
 const { User } = require('./models/User');
 
 require('dotenv').config();
@@ -13,16 +14,14 @@ app.use(bodyParser.json());
 const PORT = 5000;
 
 mongoose
-    .connect(
-        `mongodb+srv://won:${process.env.PASSWORD}@boilerplate.y0wgj.mongodb.net/test?retryWrites=true&w=majority`,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-            useFindAndModify: true,
-        }
-    )
-    .then(() => console.log('mondodb connected'));
+    .connect(config.mongoURI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: true,
+    })
+    .then(() => console.log('mondodb connected'))
+    .catch((err) => console.error(err));
 
 app.get('/', (req, res) => res.send('Hello World'));
 app.post('/register', (req, res) => {
